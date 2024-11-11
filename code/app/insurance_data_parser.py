@@ -26,6 +26,3 @@ def extract_vehicle_insurance_info(text, data_structure=VehicleInsurance):
     response_format=data_structure
     )
     return completion.choices[0].message.parsed
-
-
-print(type(extract_vehicle_insurance_info("Customer born April 7 1998, has a 2.5 year old petrol car with a 12 month subscription.")))
