@@ -21,10 +21,33 @@ claim_description = st.text_area("Type `Claim description` below:", "Customer ag
 if st.button("Extract"):
     insurance_info: Optional[VehicleInsurance] = extract_vehicle_insurance_info(claim_description)
     if insurance_info is not None:
-        st.write("## Extracted Information")
-        st.write("Subscription Length:", insurance_info.subscription_length)
-        st.write("Vehicle Age:", insurance_info.vehicle_age)
-        st.write("Customer Age:", insurance_info.customer_age)
-        st.write("Fuel Type:", f"`{insurance_info.fuel_type}`")
+        # Create two columns
+        col1, col2 = st.columns(2)
+        
+        # Column 1: Extracted Information
+        with col1:
+            st.write("## Extracted Information")
+            st.write("Subscription Length:", insurance_info.subscription_length)
+            st.write("Vehicle Age:", insurance_info.vehicle_age)
+            st.write("Customer Age:", insurance_info.customer_age)
+            st.write("Fuel Type:", f"`{insurance_info.fuel_type}`")
+        
+        # Column 2: Prediction
+        with col2:
+            st.write("## Prediction")
+            dummy_prediction = 0.75  # Dummy prediction value
+            if dummy_prediction > 0.5:
+                st.metric(
+                    label="Claim Likelihood",
+                    value=f"{dummy_prediction:.1%}",
+                    delta="High Risk",
+                    delta_color="inverse"  # This will make the delta red
+                )
+            else:
+                st.metric(
+                    label="Claim Likelihood",
+                    value=f"{dummy_prediction:.1%}",
+                    delta="Low Risk"
+                )
     else:
         st.error("Could not extract insurance information from the description")
