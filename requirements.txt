@@ -1,4 +1,4 @@
-openai==1.54.3
+openai==1.54.4
 pandas==2.2.2
 pydantic==2.5.3
 pydantic-core==2.14.6
